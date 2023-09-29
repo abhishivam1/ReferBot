@@ -66,7 +66,6 @@ func main() {
 
 func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 	message := ctx.EffectiveMessage
-	var user int64
 
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
@@ -74,15 +73,14 @@ func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 		return nil
 	}
 	if len(ctx.Args()) != 1 {
-		if db.CheckUser(ctx.EffectiveSender.Id()) {
-			message.Reply(bot, "You have already starteed the bot!", nil)
-			return nil
-		}
+		// if db.CheckUser(ctx.EffectiveSender.Id()) {
+		// 	message.Reply(bot, "You have already starteed the bot!", nil)
+		// 	return nil
+		// }
 		db.Refer_Update(ctx.Args()[1], "e") // Updating user refers....
-		message.Reply(bot, fmt.Sprintf("YOu are invited by %v", user), nil)
+		message.Reply(bot, fmt.Sprintf("YOu are invited by %s", ctx.Args()[1]), nil)
 		db.AddUser(ctx.EffectiveSender.Id())
 	} else {
-		user = 908732147
 		message.Reply(bot, "Bot is alive", nil)
 		db.AddUser(ctx.EffectiveSender.Id())
 	}
