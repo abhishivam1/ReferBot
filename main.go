@@ -69,7 +69,7 @@ func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
-		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
+		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/+4avgC0R1h5JjN2U1", nil)
 		return nil
 	}
 	if len(ctx.Args()) != 1 {
@@ -91,7 +91,7 @@ func Join(bot *gotgbot.Bot, ctx *ext.Context) error {
 	message := ctx.EffectiveMessage
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
-		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
+		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/+4avgC0R1h5JjN2U1", nil)
 		return nil
 	}
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
@@ -126,7 +126,7 @@ func Referral(bot *gotgbot.Bot, ctx *ext.Context) error {
 	message := ctx.EffectiveMessage
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
-		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
+		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/+4avgC0R1h5JjN2U1", nil)
 		return nil
 	}
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
@@ -155,7 +155,7 @@ type User struct {
 	Refers int64 `bson:"refers"`
 }
 
-var FsubChats = []int64{-1001306365800}
+var FsubChats = []int64{-1001973535851}
 
 func Fsub(user_id int64, bot *gotgbot.Bot) bool {
 	chats := FsubChats
