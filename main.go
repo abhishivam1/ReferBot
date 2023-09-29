@@ -108,9 +108,9 @@ func Competiton(bot *gotgbot.Bot, ctx *ext.Context) error {
 		return nil
 	}
 	ctx.EffectiveMessage.Reply(bot, "Cashprize:\n
-🥇: 1200$\n
-🥈: 750$\n
-🥉: 400$\n", nil)
+\U0001f947: 1200$\n
+\U0001f948: 750$\n
+\U0001f949: 400$\n", nil)
 	return nil
 }
 
