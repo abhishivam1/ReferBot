@@ -144,7 +144,7 @@ func Referral(bot *gotgbot.Bot, ctx *ext.Context) error {
 
 	text := "Top Refers:\n"
 	for _, user := range users {
-		text += fmt.Sprintf(`<a href="tg://user?id=%d">%d</a> - %d refers`, user.UserID, user.UserID, user.Refers)
+		text += fmt.Sprintf(`@%s - %d refers`, user.UserID, user.Refers)
 		text += "\n"
 	}
 
