@@ -14,7 +14,7 @@ import (
 	"github.com/PaulSonOfLars/gotgbot/v2/ext/handlers"
 )
 
-var token = `6676388091:AAEzoYazL3jz-vaIYAn4Pw8EjE233ytcBLQ` // Your Bot token here i.e. by @botfather....
+var token = `6479628391:AAG5xPUIz7Y1O4s6LhXgjYlv5hWqiLhj4L4` // Your Bot token here i.e. by @botfather....
 
 func main() {
 
