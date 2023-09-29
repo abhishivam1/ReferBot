@@ -69,6 +69,11 @@ func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 	message := ctx.EffectiveMessage
 	var user int64
 
+	fsub := Fsub(ctx.EffectiveUser.Id, bot)
+	if !fsub {
+		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
+		return nil
+	}
 	if len(ctx.Args()) != 1 {
 		user, _ = strconv.ParseInt(ctx.Args()[1], 10, 64)
 		if db.CheckUser(ctx.EffectiveSender.Id()) {
@@ -87,6 +92,11 @@ func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 }
 
 func Join(bot *gotgbot.Bot, ctx *ext.Context) error {
+	fsub := Fsub(ctx.EffectiveUser.Id, bot)
+	if !fsub {
+		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
+		return nil
+	}
 	message := ctx.EffectiveMessage
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
 		message.Reply(bot, "This bot can only be used in groups", nil)
@@ -102,6 +112,11 @@ Link - https://t.me/%s?start=%v
 }
 
 func Competiton(bot *gotgbot.Bot, ctx *ext.Context) error {
+	fsub := Fsub(ctx.EffectiveUser.Id, bot)
+	if !fsub {
+		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
+		return nil
+	}
 	message := ctx.EffectiveMessage
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
 		message.Reply(bot, "This bot can only be used in groups", nil)
@@ -112,6 +127,11 @@ func Competiton(bot *gotgbot.Bot, ctx *ext.Context) error {
 }
 
 func Referral(bot *gotgbot.Bot, ctx *ext.Context) error {
+	fsub := Fsub(ctx.EffectiveUser.Id, bot)
+	if !fsub {
+		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
+		return nil
+	}
 	message := ctx.EffectiveMessage
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
 		message.Reply(bot, "This bot can only be used in groups", nil)
@@ -137,6 +157,30 @@ func Referral(bot *gotgbot.Bot, ctx *ext.Context) error {
 type User struct {
 	UserID int64 `bson:"user_id"`
 	Refers int64 `bson:"refers"`
+}
+
+var FsubChats = []int64{-1001306365800}
+func Fsub(user_id int64, bot *gotgbot.Bot) bool {
+	chats := FsubChats
+	Result := false
+	for _, chat := range chats {
+		member, err := bot.GetChatMember(chat, user_id, &gotgbot.GetChatMemberOpts{})
+		if err != nil {
+			bot.SendMessage(
+				FsubChats[0],
+				fmt.Sprintf("Bot is not admin in the channel - %v", chat),
+				&gotgbot.SendMessageOpts{},
+			)
+			Result = false
+		}
+		status := member.GetStatus()
+		if status == "creator" || status == "member" || status == "administrator" {
+			Result = true
+			break
+		}
+		Result = false
+	}
+	return Result
 }
 
 // Made by @reeshuxd
