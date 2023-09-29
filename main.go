@@ -101,9 +101,9 @@ func Join(bot *gotgbot.Bot, ctx *ext.Context) error {
 
 	text := `
 Hello %s, Here is your referral link:
-Link - https://t.me/%s?start=%v
+Link - https://t.me/%s?start=%s
 	`
-	message.Reply(bot, fmt.Sprintf(text, ctx.EffectiveSender.FirstName(), bot.Username, ctx.EffectiveSender.Id()), nil)
+	message.Reply(bot, fmt.Sprintf(text, ctx.EffectiveSender.FirstName(), bot.Username, ctx.EffectiveSender.Username()), nil)
 	return nil
 }
 
