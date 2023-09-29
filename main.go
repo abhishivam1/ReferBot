@@ -66,7 +66,6 @@ func main() {
 }
 
 func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
-	db.AddUser(ctx.EffectiveSender.Id())
 	message := ctx.EffectiveMessage
 	var user int64
 
@@ -78,9 +77,11 @@ func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 		}
 		db.Refer_Update(user, "e") // Updating user refers....
 		message.Reply(bot, fmt.Sprintf("YOu are invited by %v", user), nil)
+		db.AddUser(ctx.EffectiveSender.Id())
 	} else {
 		user = 908732147
 		message.Reply(bot, "Bot is alive", nil)
+		db.AddUser(ctx.EffectiveSender.Id())
 	}
 	return nil
 }
@@ -125,10 +126,11 @@ func Referral(bot *gotgbot.Bot, ctx *ext.Context) error {
 
 	text := "Top Refers:\n"
 	for _, user := range users {
-		text += fmt.Sprintf("%d - %d refers\n", user.UserID, user.Refers)
+		text += fmt.Sprintf(`<a href="tg://user?id=%d">%d</a> - %d refers`, user.UserID, user.UserID, user.Refers)
+		text += "\n"
 	}
 
-	message.Reply(bot, text, nil)
+	message.Reply(bot, text, &gotgbot.SendMessageOpts{ParseMode: "html"})
 	return nil
 }
 
