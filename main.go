@@ -107,7 +107,10 @@ func Competiton(bot *gotgbot.Bot, ctx *ext.Context) error {
 		message.Reply(bot, "This bot can only be used in groups", nil)
 		return nil
 	}
-	ctx.EffectiveMessage.Reply(bot, "Prize Money is 200rs!", nil)
+	ctx.EffectiveMessage.Reply(bot, "Cashprize:\n
+🥇: 1200$\n
+🥈: 750$\n
+🥉: 400$\n", nil)
 	return nil
 }
 
