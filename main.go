@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"newbi/db"
-	"strconv"
 	"time"
 
 	"github.com/PaulSonOfLars/gotgbot/v2"
@@ -75,12 +74,11 @@ func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 		return nil
 	}
 	if len(ctx.Args()) != 1 {
-		user, _ = strconv.ParseInt(ctx.Args()[1], 10, 64)
 		if db.CheckUser(ctx.EffectiveSender.Id()) {
 			message.Reply(bot, "You have already starteed the bot!", nil)
 			return nil
 		}
-		db.Refer_Update(user, "e") // Updating user refers....
+		db.Refer_Update(ctx.Args()[1], "e") // Updating user refers....
 		message.Reply(bot, fmt.Sprintf("YOu are invited by %v", user), nil)
 		db.AddUser(ctx.EffectiveSender.Id())
 	} else {
@@ -92,12 +90,12 @@ func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 }
 
 func Join(bot *gotgbot.Bot, ctx *ext.Context) error {
+	message := ctx.EffectiveMessage
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
 		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
 		return nil
 	}
-	message := ctx.EffectiveMessage
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
 		message.Reply(bot, "This bot can only be used in groups", nil)
 		return nil
@@ -112,12 +110,12 @@ Link - https://t.me/%s?start=%v
 }
 
 func Competiton(bot *gotgbot.Bot, ctx *ext.Context) error {
+	message := ctx.EffectiveMessage
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
 		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
 		return nil
 	}
-	message := ctx.EffectiveMessage
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
 		message.Reply(bot, "This bot can only be used in groups", nil)
 		return nil
@@ -127,12 +125,12 @@ func Competiton(bot *gotgbot.Bot, ctx *ext.Context) error {
 }
 
 func Referral(bot *gotgbot.Bot, ctx *ext.Context) error {
+	message := ctx.EffectiveMessage
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
 		message.Reply(bot, "Join my channel in order to use me\nLink here...", nil)
 		return nil
 	}
-	message := ctx.EffectiveMessage
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
 		message.Reply(bot, "This bot can only be used in groups", nil)
 		return nil
@@ -160,6 +158,7 @@ type User struct {
 }
 
 var FsubChats = []int64{-1001306365800}
+
 func Fsub(user_id int64, bot *gotgbot.Bot) bool {
 	chats := FsubChats
 	Result := false
