@@ -13,7 +13,7 @@ import (
 	"github.com/PaulSonOfLars/gotgbot/v2/ext/handlers"
 )
 
-var token = `6479628391:AAG5xPUIz7Y1O4s6LhXgjYlv5hWqiLhj4L4` // Your Bot token here i.e. by @botfather....
+var token = `6367949822:AAEzxk81Kvi0mjW2COePRfPRcL6QRfLtSQ0` // Your Bot token here i.e. by @botfather....
 
 func main() {
 
@@ -69,7 +69,7 @@ func Start(bot *gotgbot.Bot, ctx *ext.Context) error {
 
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
-		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/+8tgmGpFouxk1ODM9", nil)
+		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/WalkieERC20", nil)
 		return nil
 	}
 	if len(ctx.Args()) != 1 {
@@ -91,7 +91,7 @@ func Join(bot *gotgbot.Bot, ctx *ext.Context) error {
 	message := ctx.EffectiveMessage
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
-		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/+8tgmGpFouxk1ODM9", nil)
+		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/WalkieERC20", nil)
 		return nil
 	}
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
@@ -126,7 +126,7 @@ func Referral(bot *gotgbot.Bot, ctx *ext.Context) error {
 	message := ctx.EffectiveMessage
 	fsub := Fsub(ctx.EffectiveUser.Id, bot)
 	if !fsub {
-		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/+8tgmGpFouxk1ODM9", nil)
+		message.Reply(bot, "Join my channel in order to use me\nhttps://t.me/WalkieERC20", nil)
 		return nil
 	}
 	if ctx.EffectiveChat.Type != "supergroup" && ctx.EffectiveChat.Type != "group" {
